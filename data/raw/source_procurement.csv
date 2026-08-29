@@ -1,0 +1,27 @@
+material_id,material_name_procurement,supplier_id,supplier_name,supplier_country,sourcing_status,annual_volume_kg,price_per_kg,currency
+BO-1001,Base Oil Group II 150N Viscosity Grade,SUP-101-LEGACY,NordPetrol Refining GmbH,Germany,Current,200000,1.20,EUR
+BO-1001,Base Oil Group II 150N Viscosity Grade,SUP-101,NordPetrol Refining GmbH,Germany,Current,200000,1.20,EUR
+BO-1002,Base Oil Group II 150N Viscosity Grade,SUP-102,Iberia Base Oils S.L.,Spain,Alternative,200000,1.05,EUR
+BO-1003,Base Oil Group II 150N Viscosity Grade,SUP-103,Baltic Petrochemical Works,Poland,Alternative,200000,1.15,EUR
+BO-1004,Base Oil Group II 150N Viscosity Grade,SUP-104,Nordic Hydrotreated Oils AB,Sweden,Alternative,200000,1.30,EUR
+BO-1005,Base Oil Group II 150N Viscosity Grade,SUP-105,Atlas Lubricant Solutions,France,Alternative,200000,1.25,EUR
+SV-2001,Isopropanol (IPA) Technical Grade 99.8%,SUP-201,Rhine Solvent Works GmbH,Germany,Current,80000,1.10,EUR
+SV-2002,Isopropanol (IPA) Technical Grade 99.5%,SUP-202,Danube Chemical Traders,Hungary,Alternative,80000,0.95,EUR
+SV-2003,Isopropanol (IPA) Bio-based Route 99.5%,SUP-203,Nordic BioSolvents AS,Norway,Alternative,80000,1.35,EUR
+SV-2004,Isopropanol (IPA) Technical Grade 99.7%,SUP-204,Atlantic Solvent Supply Ltd,Ireland,Alternative,80000,1.05,EUR
+SV-2005,Isopropanol (IPA) Reclaimed/Redistilled Grade 99.5%,SUP-205,Circular Solvents Recovery GmbH,Austria,Alternative,80000,1.18,EUR
+SF-3001,Fatty Alcohol Ethoxylate (Nonionic) C12-14 7EO,SUP-301,Continental Surfactants BV,Netherlands,Current,60000,2.40,EUR
+SF-3002,Fatty Alcohol Ethoxylate (Nonionic) C12-14 8EO Bio-based Feedstock,SUP-302,Meridian Green Chemicals,Italy,Alternative,60000,2.55,EUR
+SF-3003,Fatty Alcohol Ethoxylate (Nonionic) C12-14 6EO,SUP-303,Pannonia Chemical Supply,Hungary,Alternative,60000,2.20,EUR
+SF-3004,Fatty Alcohol Ethoxylate (Nonionic) C12-14 7EO Alternative Supplier,SUP-304,Baltic Biosurfactants Oy,Finland,Alternative,60000,2.65,EUR
+SF-3005,Fatty Alcohol Ethoxylate (Nonionic) C12-14 9EO,SUP-305,Iberia Specialty Surfactants SA,Spain,Alternative,60000,2.35,EUR
+PA-4001,Antioxidant Additive Package AO-1,SUP-401,Rhein Polymer Additives GmbH,Germany,Current,40000,4.20,EUR
+PA-4002,Antioxidant Additive Package AO-2 (New Chemistry),SUP-402,Meridian Polymer Innovations Srl,Italy,Alternative,40000,3.60,EUR
+PA-4003,Antioxidant Additive Package AO-1 Alt Source,SUP-403,Baltic Specialty Additives AB,Sweden,Alternative,40000,4.05,EUR
+PA-4004,Antioxidant Additive Package AO-3 (Next-Gen Blend),SUP-404,Atlas Polymer Chemicals Ltd,United Kingdom,Alternative,40000,3.90,EUR
+PA-4005,Antioxidant Additive Package AO-1 Regional Source,SUP-405,Iberia Additive Solutions SA,Spain,Alternative,40000,4.35,EUR
+RB-5001,Acrylic Resin Disp. 50%,SUP-501,Rhine Resin Technologies GmbH,Germany,Current,100000,1.80,EUR
+RB-5002,Acrylic Resin Dispersion 50% Solids Alt Source,SUP-502,Danube Polymer Resins Kft,Hungary,Alternative,100000,1.75,EUR
+RB-5003,Acrylic Resin Dispersion 48% Solids,SUP-503,Baltic Binder Solutions AS,Estonia,Alternative,100000,1.85,EUR
+RB-5004,Acrylic Resin Dispersion 50% Solids Regional Source,SUP-504,Iberia Resin Systems SL,Spain,Alternative,100000,1.78,EUR
+RB-5005,Acrylic Resin Dispersion 52% Solids,SUP-505,Nordic Binder Chemicals AB,Sweden,Alternative,100000,1.82,EUR

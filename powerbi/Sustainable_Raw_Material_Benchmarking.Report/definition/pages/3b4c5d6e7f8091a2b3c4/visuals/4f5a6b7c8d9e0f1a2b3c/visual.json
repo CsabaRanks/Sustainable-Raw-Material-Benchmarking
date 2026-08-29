@@ -1,0 +1,186 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "4f5a6b7c8d9e0f1a2b3c",
+  "position": {
+    "x": 1190,
+    "y": 840,
+    "z": 8000,
+    "height": 216,
+    "width": 706,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "material_id"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.material_id",
+              "nativeQueryRef": "material_id",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Cost Delta %"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Cost Delta %",
+              "nativeQueryRef": "Cost Delta %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Annual Spend (EUR)"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Annual Spend (EUR)",
+              "nativeQueryRef": "Annual Spend (EUR)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Weighted Avg Price (EUR/kg)"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Weighted Avg Price (EUR/kg)",
+              "nativeQueryRef": "Weighted Avg Price (EUR/kg)"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            },
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Not on the trade-off chart — no PCF, carbon unassessed'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter5a6b7c8d9e0f1a2b3c4d5e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "consolidated_material_benchmark"
+              }
+            },
+            "Property": "has_pcf_data"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "c",
+              "Entity": "consolidated_material_benchmark",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "c"
+                          }
+                        },
+                        "Property": "has_pcf_data"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "false"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  }
+}

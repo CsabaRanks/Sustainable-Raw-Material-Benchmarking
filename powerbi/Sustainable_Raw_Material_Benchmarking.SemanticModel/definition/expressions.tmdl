@@ -1,0 +1,10 @@
+/// Full path to the processed benchmark file produced by src/transform.py.
+/// Set this once, to your own consolidated_material_benchmark.csv or to the
+/// synthetic demonstration output in data/processed/. No M code needs editing.
+expression DataFilePath = "" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 5f3a9c21-7d64-4e18-b0a5-2c9e8f14d763
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+

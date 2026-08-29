@@ -1,0 +1,7 @@
+raw_supplier_name,supplier_id_canonical,supplier_name_canonical
+Example Chemicals AG,SUP-A,Example Chemicals AG
+Sample Solvents Ltd,SUP-B,Sample Solvents Ltd
+Demo Specialities BV,SUP-C,Demo Specialities BV
+Demo Specialities B.V.,SUP-C,Demo Specialities BV
+Placeholder Additives GmbH,SUP-D,Placeholder Additives GmbH
+Fictional Compounds SA,SUP-E,Fictional Compounds SA

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Sustainable_Raw_Material_Benchmarking"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b21c921b-b3ed-4777-8e82-9d802d6601c8"
+  }
+}

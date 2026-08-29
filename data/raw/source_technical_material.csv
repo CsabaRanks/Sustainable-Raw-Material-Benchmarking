@@ -1,0 +1,26 @@
+material_id,supplier_id,material_group,comparison_case_id,material_name_technical,technical_approval_status,physical_form,purity_pct,boiling_point_c,viscosity_cst,density_g_cm3,active_content_pct,ph_value
+BO-1001,SUP-101,Base Oils,CASE-A,Base Oil Group II 150N Viscosity Grade,Approved,Liquid,,,32.1,0.868,,
+BO-1002,SUP-102,Base Oils,CASE-A,Base Oil Group II 150N Viscosity Grade,Approved,Liquid,,,31.8,0.865,,
+BO-1003,SUP-103,Base Oils,CASE-A,Base Oil Group II 150N Viscosity Grade,Approved,Liquid,,,32.4,0.870,,
+BO-1004,SUP-104,Base Oils,CASE-A,Base Oil Group II 150N Viscosity Grade,Approved,Liquid,,,31.9,0.864,,
+BO-1005,SUP-105,Base Oils,CASE-A,Base Oil Group II 150N Viscosity Grade,Approved,Liquid,,,32.6,0.871,,
+SV-2001,SUP-201,Solvents,CASE-B,Isopropanol (IPA) Technical Grade 99.8%,Approved,Liquid,99.8,82.4,,,,
+SV-2002,SUP-202,Solvents,CASE-B,Isopropanol (IPA) Technical Grade 99.5%,Approved,Liquid,99.5,82.6,,,,
+SV-2003,SUP-203,Solvents,CASE-B,Isopropanol (IPA) Bio-based Route 99.5%,Approved,Liquid,99.5,82.5,,,,
+SV-2004,SUP-204,Solvents,CASE-B,Isopropanol (IPA) Technical Grade 99.7%,Approved,Liquid,99.7,82.5,,,,
+SV-2005,SUP-205,Solvents,CASE-B,Isopropanol (IPA) Reclaimed/Redistilled Grade 99.5%,Approved,Liquid,99.5,82.6,,,,
+SF-3001,SUP-301,Surfactants,CASE-C,Fatty Alcohol Ethoxylate (Nonionic) C12-14 7EO,Approved,Liquid,,,,,90.0,6.5
+SF-3002,SUP-302,Surfactants,CASE-C,Fatty Alcohol Ethoxylate (Nonionic) C12-14 8EO Bio-based Feedstock,Approved,Liquid,,,,,90.0,6.8
+SF-3003,SUP-303,Surfactants,CASE-C,Fatty Alcohol Ethoxylate (Nonionic) C12-14 6EO,Approved,Liquid,,,,,88.0,6.6
+SF-3004,SUP-304,Surfactants,CASE-C,Fatty Alcohol Ethoxylate (Nonionic) C12-14 7EO Alternative Supplier,Approved,Liquid,,,,,91.0,6.4
+SF-3005,SUP-305,Surfactants,CASE-C,Fatty Alcohol Ethoxylate (Nonionic) C12-14 9EO,Approved,Liquid,,,,,89.5,6.7
+PA-4001,SUP-401,Polymer Additives,CASE-D,Antioxidant Additive Package AO-1,Approved,Liquid Blend,,,120,0.98,,
+PA-4002,SUP-402,Polymer Additives,CASE-D,Antioxidant Additive Package AO-2 (New Chemistry),Not Approved,Liquid Blend,,,95,0.95,,
+PA-4003,SUP-403,Polymer Additives,CASE-D,Antioxidant Additive Package AO-1 Alt Source,Approved,Liquid Blend,,,115,0.97,,
+PA-4004,SUP-404,Polymer Additives,CASE-D,Antioxidant Additive Package AO-3 (Next-Gen Blend),Under Qualification,Liquid Blend,,,105,0.96,,
+PA-4005,SUP-405,Polymer Additives,CASE-D,Antioxidant Additive Package AO-1 Regional Source,Approved,Liquid Blend,,,125,0.99,,
+RB-5001,SUP-501,Resins / Binders,CASE-E,Acrylic Resin Dispersion 50% Solids,Approved,Liquid (Aqueous Dispersion),,,350,1.03,,
+RB-5002,SUP-502,Resins / Binders,CASE-E,Acrylic Resin Dispersion 50% Solids Alt Source,Approved,Liquid (Aqueous Dispersion),,,320,1.04,,
+RB-5003,SUP-503,Resins / Binders,CASE-E,Acrylic Resin Dispersion 48% Solids,Approved,Liquid (Aqueous Dispersion),,,300,1.02,,
+RB-5004,SUP-504,Resins / Binders,CASE-E,Acrylic Resin Dispersion 50% Solids Regional Source,Approved,Liquid (Aqueous Dispersion),,,340,1.03,,
+RB-5005,SUP-505,Resins / Binders,CASE-E,Acrylic Resin Dispersion 52% Solids,Approved,Liquid (Aqueous Dispersion),,,360,1.05,,

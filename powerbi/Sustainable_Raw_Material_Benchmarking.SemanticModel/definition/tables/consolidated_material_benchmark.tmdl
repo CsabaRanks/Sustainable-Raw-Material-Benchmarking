@@ -1,0 +1,503 @@
+table consolidated_material_benchmark
+	lineageTag: b4eb6f8c-f5fd-487c-b566-c576aaf8be78
+
+	measure 'Annual Spend (EUR)' = SUM ( consolidated_material_benchmark[annual_spend_eur] )
+		formatString: #,##0 "€"
+		lineageTag: 7f0f76bb-03a5-4354-9955-ee09085575a4
+
+	measure 'Annual Volume (kg)' = SUM ( consolidated_material_benchmark[annual_volume_kg] )
+		formatString: #,##0 "kg"
+		lineageTag: 0e7f2cf8-cf3d-401e-a9bb-2267aeb5cb09
+
+	measure 'Weighted Avg Price (EUR/kg)' = DIVIDE ( [Annual Spend (EUR)], [Annual Volume (kg)] )
+		formatString: 0.00 "€/kg"
+		lineageTag: 7dfac4e1-4a9e-4d93-858c-fcdae3d54f80
+
+	measure 'Annual CO2e (kg)' = SUM ( consolidated_material_benchmark[annual_co2e_kg] )
+		formatString: #,##0 "kg CO2e"
+		lineageTag: dc4820ed-e0dd-4f47-973b-4ac51d7a26eb
+
+	measure 'Weighted Avg PCF (kgCO2e/kg)' =
+			VAR RowsWithPCF =
+			    FILTER (
+			        consolidated_material_benchmark,
+			        NOT ISBLANK ( consolidated_material_benchmark[pcf_kgco2e_per_kg] )
+			    )
+			RETURN
+			    DIVIDE (
+			        SUMX ( RowsWithPCF, consolidated_material_benchmark[annual_co2e_kg] ),
+			        SUMX ( RowsWithPCF, consolidated_material_benchmark[annual_volume_kg] )
+			    )
+		formatString: 0.00 "kg CO2e/kg"
+		lineageTag: f39cccf4-9b0d-4e2e-8d77-eb4f358ef2d4
+
+	measure 'Baseline Spend (EUR)' =
+			CALCULATE (
+			    [Annual Spend (EUR)],
+			    REMOVEFILTERS ( consolidated_material_benchmark ),
+			    VALUES ( consolidated_material_benchmark[comparison_case_id] ),
+			    consolidated_material_benchmark[sourcing_status] = "Current"
+			)
+		formatString: #,##0 "€"
+		lineageTag: 61d24c9e-05fd-4bb3-ae5e-cd2fdec8c30b
+
+	measure 'Baseline CO2e (kg)' =
+			CALCULATE (
+			    [Annual CO2e (kg)],
+			    REMOVEFILTERS ( consolidated_material_benchmark ),
+			    VALUES ( consolidated_material_benchmark[comparison_case_id] ),
+			    consolidated_material_benchmark[sourcing_status] = "Current"
+			)
+		formatString: #,##0 "kg CO2e"
+		lineageTag: 4940eb88-da0b-4b34-b181-4f24e7d411b3
+
+	measure 'Cost Delta vs Baseline (EUR)' = [Annual Spend (EUR)] - [Baseline Spend (EUR)]
+		formatString: +#,##0 "€";-#,##0 "€";0 "€"
+		lineageTag: c74483d4-49d8-450d-9c57-1a79b0cb6705
+
+	measure 'CO2e Delta vs Baseline (kg)' =
+			IF (
+			    NOT ISBLANK ( [Annual CO2e (kg)] ) && NOT ISBLANK ( [Baseline CO2e (kg)] ),
+			    [Annual CO2e (kg)] - [Baseline CO2e (kg)]
+			)
+		formatString: +#,##0 "kg";-#,##0 "kg";0 "kg"
+		lineageTag: 1cbf0b65-5b8a-4f22-b12c-67da1238f8e3
+
+	measure 'Cost Delta %' =
+			VAR Base = [Baseline Spend (EUR)]
+			RETURN
+			    IF (
+			        HASONEVALUE ( consolidated_material_benchmark[material_id] ),
+			        DIVIDE ( [Annual Spend (EUR)] - Base, Base )
+			    )
+		formatString: +0.00 %;-0.00 %;0.00 %
+		lineageTag: 74b944be-df7a-4a85-a750-ddf81aa47817
+
+	measure 'CO2e Delta %' =
+			VAR Cur = [Annual CO2e (kg)]
+			VAR Base = [Baseline CO2e (kg)]
+			RETURN
+			    IF (
+			        HASONEVALUE ( consolidated_material_benchmark[material_id] )
+			            && NOT ISBLANK ( Cur )
+			            && NOT ISBLANK ( Base ),
+			        DIVIDE ( Cur - Base, Base )
+			    )
+		formatString: +0.00 %;-0.00 %;0.00 %
+		lineageTag: a32ffd9b-d670-4f20-b1bc-ff357d5a3b58
+
+	measure 'Materials Evaluated' = DISTINCTCOUNT ( consolidated_material_benchmark[material_id] )
+		formatString: #,##0
+		lineageTag: ec6becc2-ecce-4750-9450-81c630e1fa93
+
+	measure 'Technically Eligible Materials' =
+			CALCULATE (
+			    [Materials Evaluated],
+			    consolidated_material_benchmark[technically_eligible] = TRUE ()
+			)
+		formatString: #,##0
+		lineageTag: d0b57b2b-1687-4821-a117-f1ddcc2a0e1f
+
+	measure 'Technical Eligibility Rate' = DIVIDE ( [Technically Eligible Materials], [Materials Evaluated] )
+		formatString: 0.0 %
+		lineageTag: 16bb4e7c-3b4b-4a00-868a-799617c8fbd2
+
+	measure 'Materials with PCF' =
+			CALCULATE (
+			    [Materials Evaluated],
+			    consolidated_material_benchmark[has_pcf_data] = TRUE ()
+			)
+		formatString: #,##0
+		lineageTag: 26bd12d5-b2cc-4bce-9c97-c8cfa44b5279
+
+	measure 'PCF Coverage %' = DIVIDE ( [Materials with PCF], [Materials Evaluated] )
+		formatString: 0.0 %
+		lineageTag: d746fd60-3ec5-4203-9b92-3f52b7c77487
+
+	measure 'Spend Covered by PCF %' =
+			DIVIDE (
+			    CALCULATE (
+			        [Annual Spend (EUR)],
+			        consolidated_material_benchmark[has_pcf_data] = TRUE ()
+			    ),
+			    [Annual Spend (EUR)]
+			)
+		formatString: 0.0 %
+		lineageTag: 3f4cd457-5e8f-409e-8f50-64f950bf7b84
+
+	measure 'High Confidence PCF Materials' =
+			CALCULATE (
+			    [Materials Evaluated],
+			    consolidated_material_benchmark[pcf_data_quality_tier] = "High confidence"
+			)
+		formatString: #,##0
+		lineageTag: 99334a42-c5de-4eb6-b011-e44567bdd231
+
+	measure 'Oldest PCF Reference Year' = MIN ( consolidated_material_benchmark[pcf_reference_year] )
+		formatString: 0
+		lineageTag: a16d0c13-8eeb-4bb4-b48d-a5e90be88d1e
+
+	measure 'Comparison Cases' = DISTINCTCOUNT ( consolidated_material_benchmark[comparison_case_id] )
+		formatString: 0
+		lineageTag: 13c10ef3-43b8-4052-b8a6-c4eb07bf96f6
+
+	measure 'Baseline Material' =
+			CALCULATE (
+			    SELECTEDVALUE ( consolidated_material_benchmark[material_id] ),
+			    REMOVEFILTERS ( consolidated_material_benchmark ),
+			    VALUES ( consolidated_material_benchmark[comparison_case_id] ),
+			    consolidated_material_benchmark[sourcing_status] = "Current"
+			)
+		lineageTag: abdadd95-deee-46b0-b275-f80bfa7c5cd4
+
+	column comparison_case_id
+		dataType: string
+		lineageTag: 589df79d-aed4-4e89-b17a-3475f9f265b3
+		summarizeBy: none
+		sourceColumn: comparison_case_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column material_group
+		dataType: string
+		lineageTag: 6880a77e-be83-4ed4-bd01-aa7e59008810
+		summarizeBy: none
+		sourceColumn: material_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column material_id
+		dataType: string
+		lineageTag: 598d7b9e-cfbe-4d46-b4d0-180f3814c716
+		summarizeBy: none
+		sourceColumn: material_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column material_name
+		dataType: string
+		lineageTag: 8acc04e3-4e8e-4ecd-af07-c866b0f1ec50
+		summarizeBy: none
+		sourceColumn: material_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_id
+		dataType: string
+		lineageTag: fbc01701-161e-4304-998c-653d2d246a1f
+		summarizeBy: none
+		sourceColumn: supplier_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_name
+		dataType: string
+		lineageTag: 4ac7b3be-bc9c-47d4-9a11-a438a0cb1888
+		summarizeBy: none
+		sourceColumn: supplier_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_country
+		dataType: string
+		lineageTag: 21b5f368-95a8-4a16-9c42-51b4d5eb24de
+		summarizeBy: none
+		sourceColumn: supplier_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column sourcing_status
+		dataType: string
+		lineageTag: 3e8d20f8-7c16-472e-b955-5e8c056d1f74
+		summarizeBy: none
+		sourceColumn: sourcing_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column annual_volume_kg
+		dataType: int64
+		isHidden
+		lineageTag: 521daefe-58e2-4ead-8dfc-47548d367dd2
+		summarizeBy: sum
+		sourceColumn: annual_volume_kg
+
+		annotation SummarizationSetBy = Automatic
+
+	column price_eur_per_kg
+		dataType: double
+		lineageTag: 6177531f-f5ae-4839-8dbe-7425a474dfb7
+		summarizeBy: none
+		sourceColumn: price_eur_per_kg
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column currency
+		dataType: string
+		lineageTag: e4398483-dc15-4663-9aae-59fdeb50464a
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column annual_spend_eur
+		dataType: double
+		isHidden
+		lineageTag: bc58779c-b651-478f-851e-81b127fe41a1
+		summarizeBy: sum
+		sourceColumn: annual_spend_eur
+
+		annotation SummarizationSetBy = Automatic
+
+	column technical_approval_status
+		dataType: string
+		lineageTag: 3e43cf32-9c47-40bc-82ad-895493828037
+		summarizeBy: none
+		sourceColumn: technical_approval_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column technically_eligible
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 209cf856-508d-496e-8dbf-1abf6c8bc8a2
+		summarizeBy: none
+		sourceColumn: technically_eligible
+
+		annotation SummarizationSetBy = Automatic
+
+	column pcf_kgco2e_per_kg
+		dataType: double
+		lineageTag: 684d9216-78cc-4874-a858-33c6488f7ec1
+		summarizeBy: none
+		sourceColumn: pcf_kgco2e_per_kg
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column pcf_data_type
+		dataType: string
+		lineageTag: 54a786ca-8d60-4b39-84b1-e4b9bc9bddfc
+		summarizeBy: none
+		sourceColumn: pcf_data_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column pcf_reference_year
+		dataType: int64
+		formatString: 0
+		lineageTag: dc8b8339-d070-4b88-aeb9-9203eb94934e
+		summarizeBy: none
+		sourceColumn: pcf_reference_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column pcf_data_quality_tier
+		dataType: string
+		lineageTag: e08b733b-c577-43a3-8c57-85237a8886ef
+		summarizeBy: none
+		sourceColumn: pcf_data_quality_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_pcf_data
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ea8d938d-754a-4532-bea6-c445fcd32016
+		summarizeBy: none
+		sourceColumn: has_pcf_data
+
+		annotation SummarizationSetBy = Automatic
+
+	column annual_co2e_kg
+		dataType: double
+		isHidden
+		lineageTag: d8eb0dc8-519e-4a22-8227-66160179d595
+		summarizeBy: sum
+		sourceColumn: annual_co2e_kg
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cost_delta_vs_baseline_eur
+		dataType: double
+		isHidden
+		lineageTag: 6d465cb7-281c-4cbd-83a1-c5f03d0fc693
+		summarizeBy: sum
+		sourceColumn: cost_delta_vs_baseline_eur
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cost_delta_pct_vs_baseline
+		dataType: double
+		isHidden
+		lineageTag: c20a1cd2-8df3-465d-bbff-3b0c418a6aac
+		summarizeBy: none
+		sourceColumn: cost_delta_pct_vs_baseline
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column co2e_delta_vs_baseline_kg
+		dataType: double
+		isHidden
+		lineageTag: 03299a13-b0ef-4f08-99f9-05670067c013
+		summarizeBy: sum
+		sourceColumn: co2e_delta_vs_baseline_kg
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column co2e_delta_pct_vs_baseline
+		dataType: double
+		isHidden
+		lineageTag: 19484e78-9c75-4268-a340-e1798cc93cec
+		summarizeBy: none
+		sourceColumn: co2e_delta_pct_vs_baseline
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column physical_form
+		dataType: string
+		lineageTag: ce00903c-e29f-4adb-812e-5b6c60e0aefe
+		summarizeBy: none
+		sourceColumn: physical_form
+
+		annotation SummarizationSetBy = Automatic
+
+	column purity_pct
+		dataType: double
+		lineageTag: 05aefbb7-91b5-489b-a5ec-08a1acb1f38b
+		summarizeBy: none
+		sourceColumn: purity_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column boiling_point_c
+		dataType: double
+		lineageTag: 179bd871-6d0b-4b95-ac21-cad31c755d08
+		summarizeBy: none
+		sourceColumn: boiling_point_c
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column viscosity_cst
+		dataType: double
+		lineageTag: 2a8a8b83-9998-472f-a71e-d1e17725065e
+		summarizeBy: none
+		sourceColumn: viscosity_cst
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column density_g_cm3
+		dataType: double
+		lineageTag: d85372b6-9534-4429-bdcb-5cd4721fe075
+		summarizeBy: none
+		sourceColumn: density_g_cm3
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column active_content_pct
+		dataType: double
+		lineageTag: 08497965-3fd1-452a-98c6-9a017c6d1cc0
+		summarizeBy: none
+		sourceColumn: active_content_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ph_value
+		dataType: double
+		lineageTag: 00e4444f-1d82-440f-a40c-c2d1b365cf4e
+		summarizeBy: none
+		sourceColumn: ph_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition consolidated_material_benchmark = m
+		mode: import
+		source =
+				let
+				    // The report reads the processed output of src/transform.py.
+				    // Point the DataFilePath parameter at your own file; nothing below needs editing.
+				    ConfiguredPath = #"DataFilePath",
+				    ResolvedPath =
+				        if ConfiguredPath = null or Text.Trim(ConfiguredPath) = "" then
+				            error "The DataFilePath parameter is empty. Set it to the full path of consolidated_material_benchmark.csv produced by src/transform.py. For the synthetic demonstration this is <repository folder>\data\processed\consolidated_material_benchmark.csv. See docs/POWER_BI_SETUP.md."
+				        else
+				            Text.Trim(ConfiguredPath),
+				    Source = Csv.Document(File.Contents(ResolvedPath), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    // The documented output contract, not a column count: extra columns are tolerated,
+				    // missing ones fail with a message naming them.
+				    RequiredColumns =
+				        {
+				        "comparison_case_id", "material_group", "material_id",
+				        "material_name", "supplier_id", "supplier_name",
+				        "supplier_country", "sourcing_status", "annual_volume_kg",
+				        "price_eur_per_kg", "currency", "annual_spend_eur",
+				        "technical_approval_status", "technically_eligible", "pcf_kgco2e_per_kg",
+				        "pcf_data_type", "pcf_reference_year", "pcf_data_quality_tier",
+				        "has_pcf_data", "annual_co2e_kg", "cost_delta_vs_baseline_eur",
+				        "cost_delta_pct_vs_baseline", "co2e_delta_vs_baseline_kg", "co2e_delta_pct_vs_baseline",
+				        "physical_form", "purity_pct", "boiling_point_c",
+				        "viscosity_cst", "density_g_cm3", "active_content_pct",
+				        "ph_value"
+				        },
+				    MissingColumns = List.Difference(RequiredColumns, Table.ColumnNames(PromotedHeaders)),
+				    ContractChecked =
+				        if List.IsEmpty(MissingColumns) then
+				            PromotedHeaders
+				        else
+				            error "The file at """ & ResolvedPath & """ does not match the documented Power BI input contract. Missing required column(s): " & Text.Combine(MissingColumns, ", ") & ". Regenerate it with src/transform.py, or see docs/POWER_BI_INPUT_CONTRACT.md.",
+				    TypedColumns = Table.TransformColumnTypes(
+				        ContractChecked,
+				        {
+				            {"annual_volume_kg", Int64.Type},
+				            {"price_eur_per_kg", type number},
+				            {"annual_spend_eur", type number},
+				            {"technically_eligible", type logical},
+				            {"pcf_kgco2e_per_kg", type number},
+				            {"pcf_reference_year", Int64.Type},
+				            {"has_pcf_data", type logical},
+				            {"annual_co2e_kg", type number},
+				            {"cost_delta_vs_baseline_eur", type number},
+				            {"cost_delta_pct_vs_baseline", type number},
+				            {"co2e_delta_vs_baseline_kg", type number},
+				            {"co2e_delta_pct_vs_baseline", type number},
+				            {"purity_pct", type number},
+				            {"boiling_point_c", type number},
+				            {"viscosity_cst", type number},
+				            {"density_g_cm3", type number},
+				            {"active_content_pct", type number},
+				            {"ph_value", type number}
+				        },
+				        "en-US"
+				    )
+				in
+				    TypedColumns
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

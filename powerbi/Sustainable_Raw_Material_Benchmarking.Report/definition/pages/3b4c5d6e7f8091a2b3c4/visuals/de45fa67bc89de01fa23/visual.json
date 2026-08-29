@@ -1,0 +1,115 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "de45fa67bc89de01fa23",
+  "position": {
+    "x": 24,
+    "y": 110,
+    "z": 2000,
+    "height": 120,
+    "width": 1872,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Baseline Material"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Baseline Material",
+              "nativeQueryRef": "Baseline Material"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Baseline Spend (EUR)"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Baseline Spend (EUR)",
+              "nativeQueryRef": "Baseline Spend (EUR)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Baseline CO2e (kg)"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Baseline CO2e (kg)",
+              "nativeQueryRef": "Baseline CO2e (kg)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Technically Eligible Materials"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Technically Eligible Materials",
+              "nativeQueryRef": "Technically Eligible Materials"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Materials with PCF"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Materials with PCF",
+              "nativeQueryRef": "Materials with PCF"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Incumbent and case context'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

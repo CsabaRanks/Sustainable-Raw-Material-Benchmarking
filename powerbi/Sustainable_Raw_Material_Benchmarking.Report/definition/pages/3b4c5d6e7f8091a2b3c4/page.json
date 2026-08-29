@@ -1,0 +1,55 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "3b4c5d6e7f8091a2b3c4",
+  "displayName": "Material Benchmark & Decision Analysis",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920,
+  "visualInteractions": [
+    {
+      "source": "ef56ab78cd90ef12ab34",
+      "target": "de45fa67bc89de01fa23",
+      "type": "NoFilter"
+    },
+    {
+      "source": "fa67bc89de01fa23bc45",
+      "target": "de45fa67bc89de01fa23",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0b1c2d3e4f5a6b7c8d9e",
+      "target": "de45fa67bc89de01fa23",
+      "type": "NoFilter"
+    },
+    {
+      "source": "1c2d3e4f5a6b7c8d9e0f",
+      "target": "de45fa67bc89de01fa23",
+      "type": "NoFilter"
+    },
+    {
+      "source": "2d3e4f5a6b7c8d9e0f1a",
+      "target": "de45fa67bc89de01fa23",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ef56ab78cd90ef12ab34",
+      "target": "fa67bc89de01fa23bc45",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "ef56ab78cd90ef12ab34",
+      "target": "0b1c2d3e4f5a6b7c8d9e",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "fa67bc89de01fa23bc45",
+      "target": "ef56ab78cd90ef12ab34",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "0b1c2d3e4f5a6b7c8d9e",
+      "target": "ef56ab78cd90ef12ab34",
+      "type": "HighlightFilter"
+    }
+  ]
+}

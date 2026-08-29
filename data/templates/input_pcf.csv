@@ -1,0 +1,6 @@
+pcf_record_id,supplier_name_pcf,supplier_country_pcf,material_name_pcf,material_id_linked,supplier_id_linked,pcf_value,pcf_unit_basis,pcf_data_type,pcf_reference_year,pcf_data_quality_note
+PCF-E01,Example Chemicals AG,Germany,Example Solvent Grade A,,,1.50,kg CO2e/kg,Supplier-specific (primary),2023,
+PCF-E02,Sample Solvents Ltd,NL,Example Solvent Grade A Bio-based,,,900,kg CO2e/t,Industry-average (secondary),2019,Sector average; no site-specific data
+PCF-E03,Demo Specialities B.V.,Netherlands,Example Solvent Grade A Alternative Supplier,,,1.20,kg CO2e/kg,Supplier-specific (primary),2023,
+PCF-E04,Example Chemicals AG,Germany,Example Additive Package B,,,2.00,kg CO2e/kg,Supplier-specific (primary),2023,
+PCF-E06,Fictional Compounds SA,France,Example Additive Package B Next Generation,,,1.60,kg CO2e/kg,Supplier-specific (primary),2023,

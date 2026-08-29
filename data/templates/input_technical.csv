@@ -1,0 +1,7 @@
+material_id,supplier_id,material_group,comparison_case_id,material_name_technical,technical_approval_status,physical_form,purity_pct,boiling_point_c,viscosity_cst,density_g_cm3,active_content_pct,ph_value
+MAT-001,SUP-A,Example Solvents,CASE-X,Example Solvent Grade A,Approved,Liquid,99.5,145.0,1.2,0.870,,
+MAT-002,SUP-B,Example Solvents,CASE-X,Example Solvent Grade A Bio-based,Approved,Liquid,99.2,147.0,1.3,0.875,,
+MAT-003,SUP-C,Example Solvents,CASE-X,Example Solvent Grade A Alternative Supplier,Not Approved,Liquid,98.1,151.0,1.4,0.881,,
+MAT-004,SUP-A,Example Additives,CASE-Y,Example Additive Package B,Approved,Liquid,,,18.0,0.940,90.0,
+MAT-005,SUP-D,Example Additives,CASE-Y,Example Additive Package B Alt Source,Approved,Liquid,,,17.4,0.938,89.0,
+MAT-006,SUP-E,Example Additives,CASE-Y,Example Additive Package B Next Generation,Under Qualification,Liquid,,,19.1,0.944,91.0,

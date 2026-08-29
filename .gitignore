@@ -1,0 +1,46 @@
+# Loose documents sitting in the working directory are never part of this
+# repository. Everything the project publishes lives in a subfolder.
+/*.pdf
+/*.docx
+/*.doc
+/*.xlsx
+/*.pptx
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Power BI local, machine-specific and build artifacts.
+# .pbi/ holds localSettings.json (securityBindingsSignature, bound to one
+# Windows account), editorSettings.json and cache.abf. The PBIP/PBIR/TMDL
+# text files are the source; a .pbix is a build output, never the source.
+**/.pbi/
+*.pbix
+*.pbix.bak
+
+# Local-only working material, never part of the published repository
+_private_local/
+preview/
+
+# Internal development instructions and planning documents. These steer how the
+# project is built, reference private working material, and are not part of what
+# the repository publishes. Kept locally, excluded from the release package.
+CLAUDE.md
+.claude/
+Paper/PAPER_BLUEPRINT.md
+report/01_report_storyline_blueprint.md
+
+# Private research material — maintained separately from the publication package
+research/
+
+# Third-party source documents that must not be redistributed
+Paper/reference/
+
+# Office lock files
+~$*

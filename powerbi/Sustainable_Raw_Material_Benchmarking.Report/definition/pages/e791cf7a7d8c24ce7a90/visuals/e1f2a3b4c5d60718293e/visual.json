@@ -1,0 +1,101 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "e1f2a3b4c5d60718293e",
+  "position": {
+    "x": 24,
+    "y": 110,
+    "z": 2000,
+    "height": 130,
+    "width": 1872,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Baseline Spend (EUR)"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Baseline Spend (EUR)",
+              "nativeQueryRef": "Baseline Spend (EUR)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Baseline CO2e (kg)"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Baseline CO2e (kg)",
+              "nativeQueryRef": "Baseline CO2e (kg)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Technical Eligibility Rate"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Technical Eligibility Rate",
+              "nativeQueryRef": "Technical Eligibility Rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Spend Covered by PCF %"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Spend Covered by PCF %",
+              "nativeQueryRef": "Spend Covered by PCF %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Current portfolio'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

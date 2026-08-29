@@ -1,0 +1,184 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "1c2d3e4f5a6b7c8d9e0f",
+  "position": {
+    "x": 24,
+    "y": 612,
+    "z": 5000,
+    "height": 212,
+    "width": 920,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "material_id"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.material_id",
+              "nativeQueryRef": "material_id",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Weighted Avg Price (EUR/kg)"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Weighted Avg Price (EUR/kg)",
+              "nativeQueryRef": "Weighted Avg Price (EUR/kg)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Annual Spend (EUR)"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Annual Spend (EUR)",
+              "nativeQueryRef": "Annual Spend (EUR)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Cost Delta vs Baseline (EUR)"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Cost Delta vs Baseline (EUR)",
+              "nativeQueryRef": "Cost Delta vs Baseline (EUR)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Cost Delta %"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Cost Delta %",
+              "nativeQueryRef": "Cost Delta %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Annual CO2e (kg)"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Annual CO2e (kg)",
+              "nativeQueryRef": "Annual CO2e (kg)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "CO2e Delta vs Baseline (kg)"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.CO2e Delta vs Baseline (kg)",
+              "nativeQueryRef": "CO2e Delta vs Baseline (kg)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "CO2e Delta %"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.CO2e Delta %",
+              "nativeQueryRef": "CO2e Delta %"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            },
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Decision figures per material'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

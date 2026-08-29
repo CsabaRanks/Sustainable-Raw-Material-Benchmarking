@@ -1,0 +1,6 @@
+comparison_case_id,comparison_case_name,material_group,functional_requirement_description,specification_window
+CASE-A,Group II Base Oil 150N,Base Oils,Group II base oil for lubricant/metalworking-fluid blending,150N viscosity grade (approx. 32 cSt @ 40C) Group II
+CASE-B,Isopropanol Industrial Solvent,Solvents,Isopropanol as industrial cleaning/process solvent,Technical/industrial grade >= 99.5% purity
+CASE-C,Nonionic Fatty Alcohol Ethoxylate,Surfactants,Nonionic surfactant for detergent/cleaning formulation,Fatty alcohol ethoxylate C12-14 6-9 mol EO
+CASE-D,Antioxidant Additive Package,Polymer Additives,Primary antioxidant for polyolefin compound stabilization,Phenolic/phosphite-type blend
+CASE-E,Acrylic Resin Dispersion Binder,Resins / Binders,Water-based binder for coating/adhesive formulation,Acrylic resin dispersion 48-52% solids

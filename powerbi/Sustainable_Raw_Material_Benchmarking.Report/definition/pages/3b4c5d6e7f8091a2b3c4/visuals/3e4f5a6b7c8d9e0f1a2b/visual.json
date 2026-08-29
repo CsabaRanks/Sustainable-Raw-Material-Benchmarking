@@ -1,0 +1,179 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "3e4f5a6b7c8d9e0f1a2b",
+  "position": {
+    "x": 24,
+    "y": 840,
+    "z": 7000,
+    "height": 216,
+    "width": 1150,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "material_id"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.material_id",
+              "nativeQueryRef": "material_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "physical_form"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.physical_form",
+              "nativeQueryRef": "physical_form"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "purity_pct"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.purity_pct",
+              "nativeQueryRef": "purity_pct"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "boiling_point_c"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.boiling_point_c",
+              "nativeQueryRef": "boiling_point_c"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "viscosity_cst"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.viscosity_cst",
+              "nativeQueryRef": "viscosity_cst"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "density_g_cm3"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.density_g_cm3",
+              "nativeQueryRef": "density_g_cm3"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "active_content_pct"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.active_content_pct",
+              "nativeQueryRef": "active_content_pct"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "ph_value"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.ph_value",
+              "nativeQueryRef": "ph_value"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            },
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Technical properties — empty columns do not apply to this material group'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

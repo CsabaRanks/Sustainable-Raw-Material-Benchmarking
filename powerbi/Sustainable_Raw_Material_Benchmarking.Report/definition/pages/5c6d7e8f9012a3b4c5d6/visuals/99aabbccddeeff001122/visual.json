@@ -1,0 +1,200 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "99aabbccddeeff001122",
+  "position": {
+    "x": 24,
+    "y": 110,
+    "z": 2000,
+    "height": 860,
+    "width": 1193,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "pythonVisual",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "comparison_case_id"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.comparison_case_id",
+              "nativeQueryRef": "comparison_case_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "material_id"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.material_id",
+              "nativeQueryRef": "material_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "material_group"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.material_group",
+              "nativeQueryRef": "material_group"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "sourcing_status"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.sourcing_status",
+              "nativeQueryRef": "sourcing_status"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Cost Delta %"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Cost Delta %",
+              "nativeQueryRef": "Cost Delta %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "CO2e Delta %"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.CO2e Delta %",
+              "nativeQueryRef": "CO2e Delta %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Technically Eligible Materials"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Technically Eligible Materials",
+              "nativeQueryRef": "Technically Eligible Materials"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Materials with PCF"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Materials with PCF",
+              "nativeQueryRef": "Materials with PCF"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "High Confidence PCF Materials"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.High Confidence PCF Materials",
+              "nativeQueryRef": "High Confidence PCF Materials"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Oldest PCF Reference Year"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Oldest PCF Reference Year",
+              "nativeQueryRef": "Oldest PCF Reference Year"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "script": [
+        {
+          "properties": {
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Python'"
+                }
+              }
+            },
+            "source": {
+              "expr": {
+                "Literal": {
+                  "Value": "'# Sustainable Raw Material Benchmarking - portfolio screening heatmap\n# Power BI Python visual. Input: `dataset` (pandas DataFrame) built from the\n# fields in the Values well. No imputation: BLANK stays missing.\n# NOTE: this file must contain no apostrophes - it is embedded in a PBIR\n# single-quoted literal.\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom matplotlib.patches import Rectangle\nfrom matplotlib.colors import LinearSegmentedColormap, TwoSlopeNorm, to_rgb\n\n# ---------------------------------------------------------------- data\ndf = dataset.copy()\n\nC_CASE, C_MAT, C_GRP, C_SRC = \"comparison_case_id\", \"material_id\", \"material_group\", \"sourcing_status\"\nC_COST, C_CO2 = \"Cost Delta %\", \"CO2e Delta %\"\nC_ELIG, C_PCF = \"Technically Eligible Materials\", \"Materials with PCF\"\nC_CONF, C_YEAR = \"High Confidence PCF Materials\", \"Oldest PCF Reference Year\"\n\nfor c in (C_COST, C_CO2, C_ELIG, C_PCF, C_CONF, C_YEAR):\n    df[c] = pd.to_numeric(df[c], errors=\"coerce\")\n\ndf = df.sort_values([C_CASE, C_MAT]).reset_index(drop=True)\nn = len(df)\n\n# The three count measures return 1 or BLANK. BLANK here means \"zero of them\",\n# a fact rather than an unknown, so it is read as 0. The delta and year columns\n# keep NaN and are never coerced.\nflag = lambda s: s.fillna(0).astype(float)\nelig, pcf, conf = flag(df[C_ELIG]), flag(df[C_PCF]), flag(df[C_CONF])\n\n# ---------------------------------------------------------------- palette\nINK, INK_2, INK_3 = \"#121A19\", \"#3A4846\", \"#7B8B88\"\nRULE_SOFT, RULE_FIRM = \"#DCE4E2\", \"#9FB0AC\"\nOK_PALE, OK_TICK = \"#EFF6EA\", \"#8FB39C\"          # normal state recedes\nEXC_RED, WARN_AMB = \"#D9534F\", \"#F0A830\"          # exceptions only\nNA_GREY, YR_QUIET = \"#F2F4F3\", \"#FAFBFA\"\nDIV = LinearSegmentedColormap.from_list(\"cc\", [\"#176B44\", \"#FFFFFF\", \"#A32E22\"])\n\n\ndef mix(c1, c2, t):\n    a, b = np.array(to_rgb(c1)), np.array(to_rgb(c2))\n    return tuple(a + (b - a) * float(np.clip(t, 0, 1)))\n\n\ndef ink_on(rgb):\n    r, g, b = rgb[:3]\n    return \"#FFFFFF\" if (0.299 * r + 0.587 * g + 0.114 * b) < 0.58 else INK\n\n\n# Primary analytical block, then the secondary evidence block.\nHEADS = [\"Cost\\nDelta %\", \"CO₂e\\nDelta %\",\n         \"Technical\\neligibility\", \"PCF\\navailable\", \"PCF\\nconfidence\", \"PCF\\nreference year\"]\nWIDTH = [1.60, 1.60, 1.18, 0.86, 0.92, 0.94]\nPRIMARY = 2                       # first two columns are the heatmap proper\nGAP_X = 0.22                      # visual break between the two blocks\nBLOCK_GAP = 0.48                  # vertical break between comparison cases\n\nxs, x = [], 0.0\nfor j, w in enumerate(WIDTH):\n    if j == PRIMARY:\n        x += GAP_X\n    xs.append(x)\n    x += w\nXTOT = x\n\nnorm_cost = TwoSlopeNorm(vmin=-0.16, vcenter=0.0, vmax=0.26)\nnorm_co2 = TwoSlopeNorm(vmin=-0.56, vcenter=0.0, vmax=0.26)\n\n\ndef delta_cell(v, norm):\n    if pd.isna(v):\n        return NA_GREY, \"n / a\", INK_3, \"italic\", 8.4, \"normal\"\n    rgb = DIV(norm(v))[:3]\n    txt = \"{:+.2f}%\".format(v * 100).replace(\"+0.00%\", \"0.00%\")\n    return rgb, txt, ink_on(rgb), \"normal\", 9.4, \"semibold\"\n\n\n# ---------------------------------------------------------------- geometry\nys, y = [], 0.0\nfor i in range(n):\n    if i and df[C_CASE][i] != df[C_CASE][i - 1]:\n        y += BLOCK_GAP\n    ys.append(y)\n    y += 1.0\nYTOT = y\n\nfig, ax = plt.subplots(figsize=(13.6, 9.8), dpi=200)\nfig.patch.set_facecolor(\"white\")\nax.set_facecolor(\"white\")\nax.set_xlim(0, XTOT)\nax.set_ylim(YTOT, 0)\nax.set_xticks([])\nax.set_yticks([])\nfor s in ax.spines.values():\n    s.set_visible(False)\n\nPAD_P, PAD_S = 0.030, 0.105       # secondary cells sit inset, so they recede\n\nfor i in range(n):\n    row = df.iloc[i]\n    yy = ys[i]\n    cells = [delta_cell(row[C_COST], norm_cost), delta_cell(row[C_CO2], norm_co2)]\n\n    if elig[i] >= 1:\n        cells.append((to_rgb(OK_PALE), \"✓\", OK_TICK, \"normal\", 8.6, \"normal\"))\n    else:\n        cells.append((to_rgb(EXC_RED), \"✗  not approved\", \"#FFFFFF\", \"normal\", 7.9, \"semibold\"))\n\n    if pcf[i] >= 1:\n        cells.append((to_rgb(OK_PALE), \"✓\", OK_TICK, \"normal\", 8.6, \"normal\"))\n    else:\n        cells.append((to_rgb(WARN_AMB), \"missing\", INK, \"normal\", 7.9, \"semibold\"))\n\n    if conf[i] >= 1:\n        cells.append((to_rgb(OK_PALE), \"✓\", OK_TICK, \"normal\", 8.6, \"normal\"))\n    elif pcf[i] >= 1:\n        cells.append((to_rgb(WARN_AMB), \"low\", INK, \"normal\", 7.9, \"semibold\"))\n    else:\n        cells.append((to_rgb(WARN_AMB), \"no data\", INK, \"normal\", 7.9, \"semibold\"))\n\n    yr = row[C_YEAR]\n    if pd.isna(yr):\n        cells.append((to_rgb(NA_GREY), \"n / a\", INK_3, \"italic\", 8.0, \"normal\"))\n    else:\n        age = (2023.0 - float(yr)) / 4.0\n        old = age > 0.01\n        cells.append((mix(YR_QUIET, WARN_AMB, age), \"{:d}\".format(int(yr)),\n                      INK if old else INK_2, \"normal\", 8.2, \"semibold\" if old else \"normal\"))\n\n    for j, (fc, txt, tc, st, fs, fw) in enumerate(cells):\n        pad = PAD_P if j < PRIMARY else PAD_S\n        ax.add_patch(Rectangle((xs[j] + pad, yy + pad), WIDTH[j] - 2 * pad, 1 - 2 * pad,\n                               facecolor=fc, edgecolor=\"white\",\n                               linewidth=1.3 if j < PRIMARY else 0.9, zorder=2))\n        ax.text(xs[j] + WIDTH[j] / 2, yy + 0.5, txt, ha=\"center\", va=\"center\",\n                fontsize=fs, color=tc, style=st, fontweight=fw, zorder=3)\n\n# ---------------------------------------------------------------- row labels\nis_base = (df[C_SRC].astype(str).str.strip().str.lower() == \"current\") if C_SRC in df else pd.Series([False] * n)\nfor i in range(n):\n    inc = bool(is_base[i])\n    lab = (\"▸  \" + str(df[C_MAT][i])) if inc else str(df[C_MAT][i])\n    ax.text(-0.08, ys[i] + 0.5, lab, ha=\"right\", va=\"center\", fontsize=8.9,\n            color=INK if inc else INK_2, fontweight=\"semibold\" if inc else \"normal\",\n            clip_on=False)\n\n# ---------------------------------------------------------------- case blocks\nstarts = [i for i in range(n) if i == 0 or df[C_CASE][i] != df[C_CASE][i - 1]]\nbounds = starts + [n]\nLX = -1.42\nfor b, s in enumerate(starts):\n    e = bounds[b + 1]\n    top, bot = ys[s], ys[e - 1] + 1.0\n    mid = (top + bot) / 2\n    ax.add_patch(Rectangle((LX - 0.10, top + 0.06), 0.055, (bot - top) - 0.12,\n                           facecolor=RULE_FIRM, edgecolor=\"none\", clip_on=False, zorder=4))\n    ax.text(LX, mid - 0.20, str(df[C_CASE][s]), ha=\"left\", va=\"center\",\n            fontsize=11.4, fontweight=\"bold\", color=INK, clip_on=False)\n    if C_GRP in df:\n        ax.text(LX, mid + 0.46, str(df[C_GRP][s]), ha=\"left\", va=\"center\",\n                fontsize=8.4, color=INK_3, clip_on=False)\n    if b:\n        ax.plot([LX - 0.10, XTOT], [top - BLOCK_GAP / 2] * 2, color=RULE_SOFT,\n                lw=1.0, clip_on=False, zorder=1)\n\n# ---------------------------------------------------------------- headers\nfor j, h in enumerate(HEADS):\n    primary = j < PRIMARY\n    ax.text(xs[j] + WIDTH[j] / 2, -0.34, h, ha=\"center\", va=\"bottom\",\n            fontsize=10.0 if primary else 8.5,\n            fontweight=\"bold\" if primary else \"semibold\",\n            color=INK if primary else INK_3,\n            linespacing=1.45, clip_on=False)\nax.plot([LX - 0.10, xs[PRIMARY - 1] + WIDTH[PRIMARY - 1]], [0, 0], color=INK, lw=1.6, clip_on=False, zorder=4)\nax.plot([xs[PRIMARY], XTOT], [0, 0], color=RULE_FIRM, lw=1.0, clip_on=False, zorder=4)\nax.plot([LX - 0.10, XTOT], [YTOT, YTOT], color=RULE_SOFT, lw=1.0, clip_on=False, zorder=4)\n\n# ---------------------------------------------------------------- titles\nfig.text(0.010, 0.978, \"Portfolio screening — opportunity and risk by material\",\n         fontsize=16, fontweight=\"bold\", color=INK, ha=\"left\", va=\"top\")\nfig.text(0.010, 0.946,\n         \"All 25 materials across five benchmark cases. Colour compares each material with the incumbent of its own case; \"\n         \"each case is an independent decision.\",\n         fontsize=9.2, color=INK_3, ha=\"left\", va=\"top\")\n\n# ---------------------------------------------------------------- legend\nLEG = [(\"#3E8F63\", \"Performance improvement vs incumbent\"),\n       (\"#A32E22\", \"Performance deterioration / technical blocker\"),\n       (WARN_AMB, \"Weak, outdated or missing PCF evidence\"),\n       (\"#FFFFFF\", \"Incumbent or normal state\")]\nlx = 0.010\nfor cfill, label in LEG:\n    fig.add_artist(Rectangle((lx, 0.036), 0.017, 0.019, transform=fig.transFigure,\n                             facecolor=cfill, edgecolor=RULE_FIRM, linewidth=0.7))\n    fig.text(lx + 0.023, 0.0455, label, fontsize=8.6, color=INK_2, ha=\"left\", va=\"center\")\n    lx += 0.030 + 0.0053 * len(label)\nfig.text(0.010, 0.012,\n         \"n / a means the value is unknown and is never read as zero   ·   ▸ marks the incumbent   ·   \"\n         \"no score, no ranking, no weighting\",\n         fontsize=8.0, color=INK_3, ha=\"left\", va=\"bottom\")\n\nfig.subplots_adjust(left=0.180, right=0.990, top=0.884, bottom=0.088)\nplt.show()\n'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

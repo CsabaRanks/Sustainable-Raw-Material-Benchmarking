@@ -1,0 +1,7 @@
+material_id,material_name_procurement,supplier_id,supplier_name,supplier_country,sourcing_status,annual_volume_kg,price_per_kg,currency
+MAT-001,Example Solvent Grade A,SUP-A,Example Chemicals AG,Germany,Current,100000,2.00,EUR
+MAT-002,Example Solvent Grade A Bio,SUP-B,Sample Solvents Ltd,Netherlands,Alternative,100000,2.20,EUR
+MAT-003,Example Solvent Grade A Alternative Supplier,SUP-C,Demo Specialities BV,Netherlands,Alternative,100000,1.80,EUR
+MAT-004,Example Additive Package B,SUP-A,Example Chemicals AG,Germany,Current,50000,4.00,EUR
+MAT-005,Example Additive Package B Alt Source,SUP-D,Placeholder Additives GmbH,Germany,Alternative,50000,3.80,EUR
+MAT-006,Example Additive Package B Next Generation,SUP-E,Fictional Compounds SA,France,Alternative,50000,3.60,EUR

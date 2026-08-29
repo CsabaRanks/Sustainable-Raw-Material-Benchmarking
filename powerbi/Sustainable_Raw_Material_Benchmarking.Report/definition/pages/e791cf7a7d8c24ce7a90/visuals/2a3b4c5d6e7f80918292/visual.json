@@ -1,0 +1,78 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "2a3b4c5d6e7f80918292",
+  "position": {
+    "x": 1286,
+    "y": 660,
+    "z": 6000,
+    "height": 396,
+    "width": 610,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "material_group"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.material_group",
+              "nativeQueryRef": "material_group",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "Baseline Spend (EUR)"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.Baseline Spend (EUR)",
+              "nativeQueryRef": "Baseline Spend (EUR)"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Incumbent spend by material group'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

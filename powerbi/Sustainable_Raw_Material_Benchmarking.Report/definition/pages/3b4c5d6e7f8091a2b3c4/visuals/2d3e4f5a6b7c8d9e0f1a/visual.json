@@ -1,0 +1,193 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "2d3e4f5a6b7c8d9e0f1a",
+  "position": {
+    "x": 960,
+    "y": 612,
+    "z": 6000,
+    "height": 212,
+    "width": 936,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "material_id"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.material_id",
+              "nativeQueryRef": "material_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "sourcing_status"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.sourcing_status",
+              "nativeQueryRef": "sourcing_status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "supplier_name"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.supplier_name",
+              "nativeQueryRef": "supplier_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "supplier_country"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.supplier_country",
+              "nativeQueryRef": "supplier_country"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "technical_approval_status"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.technical_approval_status",
+              "nativeQueryRef": "technical_approval_status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "pcf_kgco2e_per_kg"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.pcf_kgco2e_per_kg",
+              "nativeQueryRef": "pcf_kgco2e_per_kg"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "pcf_data_type"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.pcf_data_type",
+              "nativeQueryRef": "pcf_data_type"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "pcf_data_quality_tier"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.pcf_data_quality_tier",
+              "nativeQueryRef": "pcf_data_quality_tier"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "consolidated_material_benchmark"
+                    }
+                  },
+                  "Property": "pcf_reference_year"
+                }
+              },
+              "queryRef": "consolidated_material_benchmark.pcf_reference_year",
+              "nativeQueryRef": "pcf_reference_year"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            },
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Supplier, approval and PCF evidence'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
