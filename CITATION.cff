@@ -6,7 +6,9 @@ authors:
   - family-names: Bakay
     given-names: Csaba
 version: "1.0.0"
+date-released: 2026-08-29
 license: MIT
+repository-code: "https://github.com/CsabaRanks/Sustainable-Raw-Material-Benchmarking"
 abstract: "A decision method and analytics prototype for comparing technically
   suitable raw-material alternatives on cost and Product Carbon Footprint side
   by side, without combining them into a sustainability score. Demonstrated on
